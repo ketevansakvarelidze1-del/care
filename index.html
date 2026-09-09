@@ -89,7 +89,7 @@
 
         <div class="hero-image">
 
-            <img src="/168404f58700cedc067f1dfb3b3296fc.jpg"
+            <img src="images/168404f58700cedc067f1dfb3b3296fc.jpg"
                 alt="Beauté Beauty Salon">
 
 
@@ -110,7 +110,7 @@
 
         <div class="about-image">
 
-            <img src="/=88.jpg"
+            <img src="images/=88.jpg"
                 alt="Beauté Beauty Salon">
 
            
@@ -167,6 +167,52 @@
             <a href="#services" class="about-btn">
                 Discover More
             </a>
+
+        </div>
+
+    </section>
+
+
+
+
+    <!-- ABOUT CAROUSEL -->
+    <section class="about-carousel-section">
+
+        <div class="carousel" id="aboutCarousel">
+
+            <div class="carousel-track">
+
+                <div class="carousel-slide">
+                    <img src="images/pppp.jpg" alt="Our salon space">
+                    <div class="carousel-caption">A Peaceful Space</div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="images/hair.jpg" alt="Hair styling">
+                    <div class="carousel-caption">Hair Styling</div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="images/lll.jpg" alt="Nail design">
+                    <div class="carousel-caption">Manicure &amp; Nail Design</div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="images/bt-treat.jpg" alt="Beauty treatment">
+                    <div class="carousel-caption">Facial &amp; Beauty Treatments</div>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="images/eyla.jpg" alt="Lash and brow styling">
+                    <div class="carousel-caption">Lash &amp; Brow Styling</div>
+                </div>
+
+            </div>
+
+            <button class="carousel-btn carousel-prev" aria-label="Previous slide">&#8249;</button>
+            <button class="carousel-btn carousel-next" aria-label="Next slide">&#8250;</button>
+
+            <div class="carousel-dots"></div>
 
         </div>
 
@@ -360,10 +406,10 @@
                     <h3>Relaxing Atmosphere</h3>
 
                     <p>
-                        Enjoy your beauty treatment in a calm,
+                        Enjoy your beauty treatment in af calm,
                         elegant and welcoming environment.
                     </p>
-                </div>
+                </div>f
 
             </div>
 
@@ -399,23 +445,23 @@
         <div class="gallery-grid">
 
             <div class="gallery-item gallery-large">
-                <img src="/pppp.jpg" alt="Beauty Salon">
+                <img src="images/pppp.jpg" alt="Beauty Salon">
             </div>
 
             <div class="gallery-item">
-                <img src="/bt treat.jpg" alt="Beauty Treatment">
+                <img src="images/bt-treat.jpg" alt="Beauty Treatment">
             </div>
 
             <div class="gallery-item">
-                <img src="/lll.jpg" alt="Nail Design">
+                <img src="images/lll.jpg" alt="Nail Design">
             </div>
 
             <div class="gallery-item">
-                <img src="/hair.jpg" alt="Hair Styling">
+                <img src="images/hair.jpg" alt="Hair Styling">
             </div>
 
             <div class="gallery-item">
-                <img src="/eyla.jpg" alt="Eyelashes Beauty">
+                <img src="images/eyla.jpg" alt="Eyelashes Beauty">
             </div>
 
         </div>
@@ -540,17 +586,24 @@
         </div>
 
 
-        <form class="booking-form">
+        <form class="booking-form"
+            action="https://formspree.io/f/mgaevbwp"
+            method="POST"
+            name="booking-form">
+
+            <input type="hidden" name="_subject" value="New appointment request from Beauté website">
 
             <div class="form-row">
 
                 <input
                     type="text"
+                    name="name"
                     placeholder="Your Name"
                     required>
 
                 <input
                     type="email"
+                    name="email"
                     placeholder="Your Email"
                     required>
 
@@ -561,10 +614,11 @@
 
                 <input
                     type="tel"
+                    name="phone"
                     placeholder="Phone Number"
                     required>
 
-                <select required>
+                <select name="service" required>
 
                     <option value="">
                         Select Service
@@ -595,16 +649,19 @@
 
                 <input
                     type="date"
+                    name="date"
                     required>
 
                 <input
                     type="time"
+                    name="time"
                     required>
 
             </div>
 
 
             <textarea
+                name="message"
                 placeholder="Additional Message"></textarea>
 
 
@@ -753,7 +810,50 @@
     </footer>
 
 
+    <script>
+        (function () {
+            var carousel = document.getElementById('aboutCarousel');
+            if (!carousel) return;
+
+            var track = carousel.querySelector('.carousel-track');
+            var slides = carousel.querySelectorAll('.carousel-slide');
+            var dotsWrap = carousel.querySelector('.carousel-dots');
+            var index = 0;
+            var timer;
+
+            slides.forEach(function (_, i) {
+                var dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                if (i === 0) dot.className = 'active';
+                dot.addEventListener('click', function () { goTo(i); restart(); });
+                dotsWrap.appendChild(dot);
+            });
+            var dots = dotsWrap.querySelectorAll('button');
+
+            function goTo(i) {
+                index = (i + slides.length) % slides.length;
+                track.style.transform = 'translateX(-' + (index * 100) + '%)';
+                dots.forEach(function (d, di) { d.classList.toggle('active', di === index); });
+            }
+
+            function next() { goTo(index + 1); }
+            function prev() { goTo(index - 1); }
+
+            function start() { timer = window.setInterval(next, 5000); }
+            function restart() { window.clearInterval(timer); start(); }
+
+            carousel.querySelector('.carousel-next').addEventListener('click', function () { next(); restart(); });
+            carousel.querySelector('.carousel-prev').addEventListener('click', function () { prev(); restart(); });
+
+            carousel.addEventListener('mouseenter', function () { window.clearInterval(timer); });
+            carousel.addEventListener('mouseleave', start);
+
+            start();
+        })();
+    </script>
+
+
 </body>
 
 </html>
-```
